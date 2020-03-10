@@ -10,7 +10,7 @@
   * Dijkstra, aika: O(m+nlog(n)), tila: O(n)
   * A*, Aika: O(m), tila: O(n), missä n on solmujen määrä ja m on kaarien määrä.
 * Jokin tapa lisätä tai luoda verkkoja.
-* Ajanmittaus: '''Java System.nanoTime()'''
+* Ajanmittaus: `Java System.nanoTime()`
 * Graafinen käyttöliittymä.
 
 #### Lisäominaisuuksia
