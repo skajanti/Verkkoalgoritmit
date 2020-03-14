@@ -2,7 +2,7 @@
 
 * Projekti tehdään javalla.
 * Tarkoituksena on löytää tehokkain kahden pisteen välinen reitti painotetussa verkossa.
-* Verrataan algoritmeja eri kohdilta historiaa.
+* Tarkastellaan erityisesti pelinavigaatiota.
 
 #### Minimum viable product
 * Projekti toteuttaa seuraavat algoritmit seuraavilla tehokkuustavoitteilla:
@@ -18,3 +18,4 @@
 * Graafinen esitys verkon ratkaisemisesta.
 * Labyrintin ratkaisu.
 * Verkkojen tallennus tietokantaan tai tekstitiedostolle.
+* "Jatkuvan" alan navigaatio.
