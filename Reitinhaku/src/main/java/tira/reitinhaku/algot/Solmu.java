@@ -43,12 +43,12 @@ public class Solmu implements Comparator<Solmu>, Comparable<Solmu> {
 
     @Override
     public int compare(Solmu o1, Solmu o2) {
-        return (int)(o1.getMatka() - o2.getMatka());
+        return (int) (o1.getMatka() - o2.getMatka());
     }
 
     @Override
     public int compareTo(Solmu o) {
-        return (int)(this.matka - o.getMatka());
+        return (int) (this.matka - o.getMatka());
     }
 
     @Override

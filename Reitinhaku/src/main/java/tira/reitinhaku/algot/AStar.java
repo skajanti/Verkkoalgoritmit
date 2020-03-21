@@ -3,6 +3,13 @@ package tira.reitinhaku.algot;
 import java.util.IdentityHashMap;
 import java.util.PriorityQueue;
 
+/**
+ * Metodi ottaa verkon ja alku- ja loppusolmun ja laskee alkusolmusta loppusolmuun lyhimmän reitin.
+ * 
+ * @return Metodi palauttaa IdentityHashMapin jossa on avaimena läpikäytyjä solmuja ja arvona solmun, joka on edellisenä alkusolmusta avaimena olevaan solmuun nopeimmalla reitillä.
+ * 
+ * @author seppo
+ */
 public class AStar {
     public IdentityHashMap<Solmu, Solmu> hae(Verkko verkko, Solmu alku, Solmu loppu) {
         IdentityHashMap<Solmu, Solmu> edellinen = new IdentityHashMap();
@@ -27,7 +34,7 @@ public class AStar {
                 
                 if (uusiMatka < t.getMatka()) {
                     double hMatka = Math.abs(t.getX() - loppu.getX()) + Math.abs(t.getY() - loppu.getY());
-                    t.setMatka(uusiMatka + 0.8*hMatka);
+                    t.setMatka(uusiMatka + 0.8 * hMatka);
                     edellinen.put(t, s);
                     keko.remove(t);
                     keko.add(t);

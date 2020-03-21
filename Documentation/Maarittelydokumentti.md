@@ -1,21 +1,10 @@
 # Määrittelydokumentti
 
-* Projekti tehdään javalla.
-* Tarkoituksena on löytää tehokkain kahden pisteen välinen reitti painotetussa verkossa.
-* Tarkastellaan erityisesti pelinavigaatiota.
+Projektissa toteutetaan javalla tasapainoisten ruutuverkkojen navigaatio puhtaalla Dijkstralla, A*:lla ja Jump pointilla. Verkko tulee olemaan [movingai:n sivulta](https://www.movingai.com/benchmarks/grids.html) saatava tai vastaavan tyyppinen joissa päästään liikkumaan kahdeksaan suuntaan. Dijkstrahan saadaan aikatehokkuudeltaan luokkaan O(m+nlogn), mitä huonommaksi eivät A* ja jump point sen optimointeina mene. Aikatehokkuus riippuu heuristiikan laadusta, missä O(m+n) olisi teroeettinen maksimi. Nähdään pian, kuinka hyvä toteutus on.
 
-#### Minimum viable product
-* Projekti toteuttaa seuraavat algoritmit seuraavilla tehokkuustavoitteilla:
-  * Bellman-Ford, aika: O(nm), tila: O(n)
-  * Dijkstra, aika: O(m+nlog(n)), tila: O(n)
-  * A*, Aika: O(m), tila: O(n), missä n on solmujen määrä ja m on kaarien määrä.
-  * Jokin A*:a erikoistuneempi algoritmi. Jump point?
-* Jokin tapa lisätä tai luoda verkkoja.
-* Graafinen käyttöliittymä.
+Algoritmien toteutukseen tarvitaan myös ainakin jonkin lainen binäärikeko.
 
-#### Lisäominaisuuksia
-* Erikoituneiden verkkojen generointi.
+#### Kivoja lisäyksiä jos jää aikaa.
 * Graafinen esitys verkon ratkaisemisesta.
 * Labyrintin ratkaisu.
-* Verkkojen tallennus tietokantaan tai tekstitiedostolle.
 * "Jatkuvan" alan navigaatio.

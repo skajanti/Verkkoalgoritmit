@@ -12,7 +12,7 @@ public class Kaari {
         a.lisaaKaari(this);
         b.lisaaKaari(this);
         
-        paino = Math.sqrt(Math.pow(a.getX( )- b.getX(), 2) + Math.pow(a.getY() - b.getY(), 2));
+        paino = Math.sqrt(Math.pow(a.getX() - b.getX(), 2) + Math.pow(a.getY() - b.getY(), 2));
     }
 
     public Solmu getA() {
@@ -30,7 +30,7 @@ public class Kaari {
     public Solmu getToinen(Solmu s) {
         if (s.equals(a)) {
             return b;
-        } else if (s.equals(b)){
+        } else if (s.equals(b)) {
             return a;
         } else {
             return null;

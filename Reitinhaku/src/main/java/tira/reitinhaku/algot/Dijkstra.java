@@ -7,6 +7,13 @@ import java.util.PriorityQueue;
 
 public class Dijkstra {
     
+    /**
+    * Metodi ottaa verkon ja alku- ja loppusolmun ja laskee alkusolmusta loppusolmuun lyhimmän reitin.
+    * 
+    * @return Metodi palauttaa IdentityHashMapin jossa on avaimena läpikäytyjä solmuja ja arvona solmun, joka on edellisenä alkusolmusta avaimena olevaan solmuun nopeimmalla reitillä.
+    * 
+    * @author seppo
+    */
     public Dijkstra() {
         
     }

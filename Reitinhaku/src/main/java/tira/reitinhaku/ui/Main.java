@@ -22,7 +22,7 @@ public class Main {
         
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 5; j++) {
-                v.lisaaKaari(v.getSolmut().get(i*10 + j), v.getSolmut().get(i*10 + j + 1));
+                v.lisaaKaari(v.getSolmut().get(i * 10 + j), v.getSolmut().get(i * 10 + j + 1));
             }
         }
         
@@ -31,13 +31,13 @@ public class Main {
         
         for (int i = 0; i < 10; i++) {
             for (int j = 7; j < 9; j++) {
-                v.lisaaKaari(v.getSolmut().get(i*10 + j), v.getSolmut().get(i*10 + j + 1));
+                v.lisaaKaari(v.getSolmut().get(i * 10 + j), v.getSolmut().get(i * 10 + j + 1));
             }
         }
         
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 10; j++) {
-                v.lisaaKaari(v.getSolmut().get(i*10 + j), v.getSolmut().get(i*10 + j + 10));
+                v.lisaaKaari(v.getSolmut().get(i * 10 + j), v.getSolmut().get(i * 10 + j + 10));
             }
         }
         
