@@ -13,6 +13,7 @@ public class Solmu implements Comparator<Solmu>, Comparable<Solmu> {
     public Solmu(int x, int y) {
         this.x = x;
         this.y = y;
+        matka = Double.MAX_VALUE;
         kaaret = new ArrayList();
     }
     

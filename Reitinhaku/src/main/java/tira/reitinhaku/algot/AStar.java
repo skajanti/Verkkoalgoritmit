@@ -1,16 +1,9 @@
 package tira.reitinhaku.algot;
 
-import java.util.HashMap;
 import java.util.IdentityHashMap;
-import java.util.Map;
 import java.util.PriorityQueue;
 
-public class Dijkstra {
-    
-    public Dijkstra() {
-        
-    }
-    
+public class AStar {
     public IdentityHashMap<Solmu, Solmu> hae(Verkko verkko, Solmu alku, Solmu loppu) {
         IdentityHashMap<Solmu, Solmu> edellinen = new IdentityHashMap();
         PriorityQueue<Solmu> keko = new PriorityQueue();
@@ -33,7 +26,8 @@ public class Dijkstra {
                 Solmu t = k.getToinen(s);
                 
                 if (uusiMatka < t.getMatka()) {
-                    t.setMatka(uusiMatka);
+                    double hMatka = Math.abs(t.getX() - loppu.getX()) + Math.abs(t.getY() - loppu.getY());
+                    t.setMatka(uusiMatka + 0.8*hMatka);
                     edellinen.put(t, s);
                     keko.remove(t);
                     keko.add(t);
