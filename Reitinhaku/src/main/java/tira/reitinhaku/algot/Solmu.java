@@ -53,11 +53,10 @@ public class Solmu implements Comparator<Solmu>, Comparable<Solmu> {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 53 * hash + this.x;
-        hash = 53 * hash + this.y;
-        hash = 53 * hash + (int) (Double.doubleToLongBits(this.matka) ^ (Double.doubleToLongBits(this.matka) >>> 32));
-        hash = 53 * hash + Objects.hashCode(this.kaaret);
+        int hash = 7;
+        hash = 89 * hash + this.x;
+        hash = 89 * hash + this.y;
+        hash = 89 * hash + Objects.hashCode(this.kaaret);
         return hash;
     }
 
@@ -77,12 +76,6 @@ public class Solmu implements Comparator<Solmu>, Comparable<Solmu> {
             return false;
         }
         if (this.y != other.y) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.matka) != Double.doubleToLongBits(other.matka)) {
-            return false;
-        }
-        if (!Objects.equals(this.kaaret, other.kaaret)) {
             return false;
         }
         return true;

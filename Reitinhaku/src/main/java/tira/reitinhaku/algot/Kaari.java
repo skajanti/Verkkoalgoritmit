@@ -1,5 +1,9 @@
 package tira.reitinhaku.algot;
 
+/**
+ * Kaari on kaksisuuntainen.
+ * @author seppo
+ */
 public class Kaari {
     private Solmu a;
     private Solmu b;
@@ -30,10 +34,8 @@ public class Kaari {
     public Solmu getToinen(Solmu s) {
         if (s.equals(a)) {
             return b;
-        } else if (s.equals(b)) {
-            return a;
         } else {
-            return null;
+            return a;
         }
     }
 }
