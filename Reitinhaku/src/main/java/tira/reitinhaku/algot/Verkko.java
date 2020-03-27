@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class Verkko {
     private ArrayList<Solmu> solmut;
-    private ArrayList<Kaari> kaaret;
+    private ArrayList<Kaari> kaaret; // Saattaa olla turha
     
     private Solmu[][] kartta;
     

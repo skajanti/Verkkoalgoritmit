@@ -14,10 +14,6 @@ public class Dijkstra {
     * 
     * @author seppo
     */
-    public Dijkstra() {
-        
-    }
-    
     public IdentityHashMap<Solmu, Solmu> hae(Verkko verkko, Solmu alku, Solmu loppu) {
         IdentityHashMap<Solmu, Solmu> edellinen = new IdentityHashMap();
         PriorityQueue<Solmu> keko = new PriorityQueue();
@@ -40,7 +36,7 @@ public class Dijkstra {
                 Solmu t = k.getToinen(s);
                 
                 if (uusiMatka < t.getMatka()) {
-                    t.setMatka(uusiMatka);
+                    t.setMatka(uusiMatka + hMatka(t.getX(), t.getY(), loppu.getX(), loppu.getY()));
                     edellinen.put(t, s);
                     keko.remove(t);
                     keko.add(t);
@@ -49,5 +45,9 @@ public class Dijkstra {
         }
         
         return edellinen;
+    }
+    
+    public double hMatka(int x, int y, int X, int Y) {
+        return 0.0;
     }
 }

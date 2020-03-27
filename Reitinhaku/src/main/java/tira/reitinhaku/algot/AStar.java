@@ -4,45 +4,26 @@ import java.util.IdentityHashMap;
 import java.util.PriorityQueue;
 
 /**
- * Metodi ottaa verkon ja alku- ja loppusolmun ja laskee alkusolmusta loppusolmuun lyhimmän reitin.
- * Käyttää tällä hetkellä manhattan-etäisyyttä heuristiikkana.
- * 
- * @return Metodi palauttaa IdentityHashMapin jossa on avaimena läpikäytyjä solmuja ja arvona solmun, joka on edellisenä alkusolmusta avaimena olevaan solmuun nopeimmalla reitillä.
  * 
  * @author seppo
  */
-public class AStar {
-    public IdentityHashMap<Solmu, Solmu> hae(Verkko verkko, Solmu alku, Solmu loppu) {
-        IdentityHashMap<Solmu, Solmu> edellinen = new IdentityHashMap();
-        PriorityQueue<Solmu> keko = new PriorityQueue();
-        
-        for (Solmu s : verkko.getSolmut()) {
-            s.setMatka(Double.MAX_VALUE);
-            keko.add(s);
-            
-        }
-        alku.setMatka(0.0);
-        keko.remove(alku);
-        keko.add(alku);
-        
-        while (!keko.isEmpty()) {
-            Solmu s = keko.poll();
-            if (s.equals(loppu)) break;
-            
-            for (Kaari k : s.getKaaret()) {
-                double uusiMatka = s.getMatka() + k.getPaino();
-                Solmu t = k.getToinen(s);
-                
-                if (uusiMatka < t.getMatka()) {
-                    double hMatka = Math.abs(t.getX() - loppu.getX()) + Math.abs(t.getY() - loppu.getY());
-                    t.setMatka(uusiMatka + 0.5 * hMatka);
-                    edellinen.put(t, s);
-                    keko.remove(t);
-                    keko.add(t);
-                }
-            }
-        }
-        
-        return edellinen;
+public class AStar extends Dijkstra {
+    private final double D = 1;
+    private final double D2 = Math.sqrt(2);
+    
+    /**
+     * Metodi palauttaa solmun painoon lisättävän heuristiikan.
+     *
+     * @param x Käsiteltävän solmun x-koordinaatti.
+     * @param y Käsiteltävän solmun x-koordinaatti.
+     * @param X Loppusolmun x-koordinaatti.
+     * @param Y Loppusolmun y-koordinaatti.
+     * @return Oktiilimatka käsiteltävästä solmusta kohdesolmuun.
+     */
+    @Override
+    public double hMatka(int x, int y, int X, int Y) { 
+        double dx = Math.abs(x - X);
+        double dy = Math.abs(y - Y);
+        return D * (dx + dy) + (D2 - 2 * D) * Math.min(dx, dy);
     }
 }

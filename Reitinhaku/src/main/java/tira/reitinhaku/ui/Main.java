@@ -21,8 +21,8 @@ public class Main {
         KartanLataaja lataaja = new KartanLataaja();
         Verkko v = lataaja.lataa("BigGameHunters.map");
         
-        AStar a = new AStar();
-//        Dijkstra a = new Dijkstra();
+//        AStar a = new AStar();
+        Dijkstra a = new Dijkstra();
         IdentityHashMap<Solmu, Solmu> reitti = a.hae(v, v.getSolmu(0, 30), v.getSolmu(500, 80));
         
         Solmu s = v.getSolmu(500, 80);
@@ -36,6 +36,6 @@ public class Main {
         }
         
         System.out.println(pituus);
-        System.out.println(reitti.size());
+        System.out.println((double)reitti.size()/v.getSolmut().size());
     }
 }

@@ -52,16 +52,15 @@ public class Solmu implements Comparator<Solmu>, Comparable<Solmu> {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode() { // Matka ja kaaret muuttuvat metodin käytön aikana
         int hash = 7;
         hash = 89 * hash + this.x;
         hash = 89 * hash + this.y;
-        hash = 89 * hash + Objects.hashCode(this.kaaret);
         return hash;
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Object obj) { // Matka ja kaaret muuttuvat metodin käytön aikana
         if (this == obj) {
             return true;
         }

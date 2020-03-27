@@ -9,6 +9,7 @@ import tira.reitinhaku.algot.Verkko;
 
 /**
  * Lukee MovingAI:n formaatissa olevan karttatiedoston ja tekee siitä verkon.
+ * 
  * @author seppo
  */
 public class KartanLataaja {
@@ -103,7 +104,7 @@ public class KartanLataaja {
             }
         }
         
-        for (int i = 0; i < x - 1; i++) { // käsitellään reunat vaakareunat
+        for (int i = 0; i < x - 1; i++) { // käsitellään vaakareunat
             if (kartta[i][0] && kartta[i + 1][0]) {
                 v.lisaaKaari(v.getSolmu(i, 0), v.getSolmu(i + 1, 0));
             }
