@@ -9,6 +9,7 @@ import java.util.PriorityQueue;
 import java.util.Scanner;
 import tira.reitinhaku.algot.AStar;
 import tira.reitinhaku.algot.Dijkstra;
+import tira.reitinhaku.algot.JumpPoint;
 import tira.reitinhaku.algot.Kaari;
 import tira.reitinhaku.algot.Solmu;
 import tira.reitinhaku.algot.Verkko;
@@ -22,8 +23,11 @@ public class Main {
         Verkko v = lataaja.lataa("BigGameHunters.map");
         
 //        AStar a = new AStar();
-        Dijkstra a = new Dijkstra();
+//        Dijkstra a = new Dijkstra();
+        JumpPoint a = new JumpPoint();
+        long alku = System.currentTimeMillis();
         IdentityHashMap<Solmu, Solmu> reitti = a.hae(v, v.getSolmu(0, 30), v.getSolmu(500, 80));
+        long loppu = System.currentTimeMillis();
         
         Solmu s = v.getSolmu(500, 80);
         int pituus = 0;
@@ -37,5 +41,7 @@ public class Main {
         
         System.out.println(pituus);
         System.out.println((double)reitti.size()/v.getSolmut().size());
+        
+        System.out.println(loppu - alku + "ms");
     }
 }

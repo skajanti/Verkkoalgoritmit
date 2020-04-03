@@ -31,23 +31,27 @@ public class Dijkstra {
             Solmu s = keko.poll();
             if (s.equals(loppu)) break;
             
-            for (Kaari k : s.getKaaret()) {
-                double uusiMatka = s.getMatka() + k.getPaino();
-                Solmu t = k.getToinen(s);
-                
-                if (uusiMatka < t.getMatka()) {
-                    t.setMatka(uusiMatka + hMatka(t.getX(), t.getY(), loppu.getX(), loppu.getY()));
-                    edellinen.put(t, s);
-                    keko.remove(t);
-                    keko.add(t);
-                }
-            }
+            lisaaKekoon(s, keko, verkko, edellinen, loppu);
         }
         
         return edellinen;
     }
     
-    public double hMatka(int x, int y, int X, int Y) {
+    public void lisaaKekoon(Solmu s, PriorityQueue keko, Verkko v, IdentityHashMap edellinen, Solmu loppu) {
+        for (Kaari k : s.getKaaret()) {
+            double uusiMatka = s.getMatka() + k.getPaino();
+            Solmu t = k.getToinen(s);
+
+            if (uusiMatka < t.getMatka()) {
+                t.setMatka(uusiMatka + oktiiliMatka(t.getX(), t.getY(), loppu.getX(), loppu.getY()));
+                edellinen.put(t, s);
+                keko.remove(t);
+                keko.add(t);
+            }
+        }
+    }
+    
+    public double oktiiliMatka(int x, int y, int X, int Y) {
         return 0.0;
     }
 }

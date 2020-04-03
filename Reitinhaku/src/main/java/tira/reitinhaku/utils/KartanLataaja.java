@@ -124,6 +124,8 @@ public class KartanLataaja {
             }
         }
         
+        v.lisaaBoolKartta(kartta);
+        
         return v;
     }
 }

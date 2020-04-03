@@ -4,7 +4,7 @@ import java.util.IdentityHashMap;
 import java.util.PriorityQueue;
 
 /**
- * 
+ * Lisää solmun painoon solmun ja maalin välisen oktiilimatkan, täten lähempiä solmuja priorisoidaan.
  * @author seppo
  */
 public class AStar extends Dijkstra {
@@ -21,7 +21,7 @@ public class AStar extends Dijkstra {
      * @return Oktiilimatka käsiteltävästä solmusta kohdesolmuun.
      */
     @Override
-    public double hMatka(int x, int y, int X, int Y) { 
+    public double oktiiliMatka(int x, int y, int X, int Y) { 
         double dx = Math.abs(x - X);
         double dy = Math.abs(y - Y);
         return D * (dx + dy) + (D2 - 2 * D) * Math.min(dx, dy);

@@ -11,6 +11,9 @@ public class Verkko {
     private ArrayList<Kaari> kaaret; // Saattaa olla turha
     
     private Solmu[][] kartta;
+    private boolean[][] boolkartta;
+    private int x;
+    private int y;
     
     public Verkko() {
         solmut = new ArrayList();
@@ -22,6 +25,17 @@ public class Verkko {
         solmut = new ArrayList();
         kaaret = new ArrayList();
         kartta = new Solmu[x][y];
+        boolkartta = new boolean[x][y];
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
     
     public void lisaaSolmu(Solmu s) {
@@ -44,7 +58,10 @@ public class Verkko {
     public void lisaaKaari(Solmu a, Solmu b) {
         kaaret.add(new Kaari(a, b));
     }
-
+    
+    public void lisaaBoolKartta(boolean[][] b) {
+        boolkartta = b;
+    }
     public ArrayList<Solmu> getSolmut() {
         return solmut;
     }
@@ -52,6 +69,11 @@ public class Verkko {
     public Solmu getSolmu(int x, int y) {
         if (kartta != null && y < kartta.length && x < kartta[0].length) return kartta[x][y];
         return null;
+    }
+    
+    public boolean onkoSolmu(int x, int y) {
+        if (x >= this.x || y >= this.y || x < 0 || y < 0) return false;
+        return boolkartta[x][y];
     }
 
     public ArrayList<Kaari> getKaaret() {
