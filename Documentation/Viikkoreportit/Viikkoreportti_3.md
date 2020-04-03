@@ -1,4 +1,4 @@
-### Viikko 2
+### Viikko 3
 
 * Alkuviikolla jotain kokeiluja, työyä ~1h
 * Perjantaina tehty kartanluku, testausta lisätty ja laitettu Algot perimään, työtä ~6h

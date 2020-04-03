@@ -177,7 +177,7 @@ public class JumpPoint extends AStar {
         
         if (x == v.getX()) {
             while (true) {
-            if (x == loppux && y == loppuy) return loppu;
+                if (x == loppux && y == loppuy) return loppu;
                 if (v.onkoSolmu(x, y + i)) {
                     if (!v.onkoSolmu(x - 1, y + i) && v.onkoSolmu(x - 1, y + i + 1)) {
                         return v.getSolmu(x, y + i);
@@ -191,7 +191,7 @@ public class JumpPoint extends AStar {
         
         if (x == 1) {
             while (true) {
-            if (x == loppux && y == loppuy) return loppu;
+                if (x == loppux && y == loppuy) return loppu;
                 if (v.onkoSolmu(x, y + i)) {
                     if (!v.onkoSolmu(x + 1, y + i) && v.onkoSolmu(x + 1, y + i + 1)) {
                         return v.getSolmu(x, y + i);
@@ -225,7 +225,7 @@ public class JumpPoint extends AStar {
         
         if (y == v.getY()) {
             while (true) {
-            if (x == loppux && y == loppuy) return loppu;
+                if (x == loppux && y == loppuy) return loppu;
                 if (v.onkoSolmu(x - i, y)) {
                     if (!v.onkoSolmu(x - i, y - 1) && v.onkoSolmu(x - i - 1, y - 1)) {
                         return v.getSolmu(x - i, y);
@@ -239,7 +239,7 @@ public class JumpPoint extends AStar {
         
         if (y == 1) {
             while (true) {
-            if (x == loppux && y == loppuy) return loppu;
+                if (x == loppux && y == loppuy) return loppu;
                 if (v.onkoSolmu(x - i, y)) {
                     if (!v.onkoSolmu(x - i, y + 1) && v.onkoSolmu(x - i - 1, y + 1)) {
                         return v.getSolmu(x - i, y);
@@ -273,7 +273,7 @@ public class JumpPoint extends AStar {
         
         if (y == v.getY()) {
             while (true) {
-            if (x == loppux && y == loppuy) return loppu;
+                if (x == loppux && y == loppuy) return loppu;
                 if (v.onkoSolmu(x + i, y)) {
                     if (!v.onkoSolmu(x + i, y - 1) && v.onkoSolmu(x + i + 1, y - 1)) {
                         return v.getSolmu(x + i, y);
@@ -287,7 +287,7 @@ public class JumpPoint extends AStar {
         
         if (y == 1) {
             while (true) {
-            if (x == loppux && y == loppuy) return loppu;
+                if (x == loppux && y == loppuy) return loppu;
                 if (v.onkoSolmu(x + i, y)) {
                     if (!v.onkoSolmu(x + i, y + 1) && v.onkoSolmu(x + i + 1, y + 1)) {
                         return v.getSolmu(x + i, y);
