@@ -1,6 +1,7 @@
 package tira.reitinhaku.algot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * 
@@ -11,6 +12,7 @@ public class Verkko {
     private ArrayList<Kaari> kaaret; // Saattaa olla turha
     
     private Solmu[][] kartta;
+    private double[][] painot;
     private boolean[][] boolkartta;
     private int x;
     private int y;
@@ -25,6 +27,10 @@ public class Verkko {
         solmut = new ArrayList();
         kaaret = new ArrayList();
         kartta = new Solmu[x][y];
+        painot = new double[x][y];
+        for (double[] rivi : painot) {
+            Arrays.fill(rivi, Double.MAX_VALUE);
+        }
         boolkartta = new boolean[x][y];
         this.x = x;
         this.y = y;
@@ -62,6 +68,16 @@ public class Verkko {
     public void lisaaBoolKartta(boolean[][] b) {
         boolkartta = b;
     }
+    
+    public double getPaino(int x, int y) {
+        if (onkoSolmu(x, y)) return painot[x][y];
+        return Double.MAX_VALUE;
+    }
+    
+    public void setPaino(int x, int y, double p) {
+        painot[x][y] = p;
+    }
+    
     public ArrayList<Solmu> getSolmut() {
         return solmut;
     }

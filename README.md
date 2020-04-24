@@ -14,6 +14,7 @@ Tämä on TiRa:n harjoitustyö 2020p4. Tämä dokumentti kasvaa työn edetessä.
 [Viikko 2](https://github.com/skajanti/Verkkoalgoritmit/blob/master/Documentation/Viikkoreportit/Viikkoreportti_2.md)
 [Viikko 3](https://github.com/skajanti/Verkkoalgoritmit/blob/master/Documentation/Viikkoreportit/Viikkoreportti_3.md)
 [Viikko 4](https://github.com/skajanti/Verkkoalgoritmit/blob/master/Documentation/Viikkoreportit/Viikkoreportti_4.md)
+[Viikko 6](https://github.com/skajanti/Verkkoalgoritmit/blob/master/Documentation/Viikkoreportit/Viikkoreportti_6.md)
 
 
 ### Käyttöohje

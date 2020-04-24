@@ -13,29 +13,47 @@ import tira.reitinhaku.algot.JumpPoint;
 import tira.reitinhaku.algot.Kaari;
 import tira.reitinhaku.algot.Solmu;
 import tira.reitinhaku.algot.Verkko;
+import tira.reitinhaku.tirat.Keko;
 import tira.reitinhaku.utils.KartanLataaja;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<String> rivit = new ArrayList();
+//        Keko keko = new Keko(4, 4);
+//        keko.lisaa(0, 0, 5.5);
+//        keko.lisaa(0, 1, 4.5);
+//        keko.lisaa(0, 2, 3.5);
+//        keko.lisaa(0, 3, 2.5);
+//        System.out.println(keko);
+//        double[] arr = keko.toArray();
+//        for (double i : arr) {
+//            System.out.println(i);
+//        }
+//        
+        
+        
+        
         
         KartanLataaja lataaja = new KartanLataaja();
         Verkko v = lataaja.lataa("BigGameHunters.map");
         
-//        AStar a = new AStar();
+        AStar a = new AStar();
 //        Dijkstra a = new Dijkstra();
-        JumpPoint a = new JumpPoint();
+//        JumpPoint a = new JumpPoint();
         long alku = System.currentTimeMillis();
-        IdentityHashMap<Solmu, Solmu> reitti = a.hae(v, v.getSolmu(0, 30), v.getSolmu(500, 80));
+        IdentityHashMap<Integer, Integer> reitti = a.hae(v, 0, 30, 500, 80);
         long loppu = System.currentTimeMillis();
         
-        Solmu s = v.getSolmu(500, 80);
-        int pituus = 0;
+        System.out.println(reitti.size());
         
-        while (reitti.containsKey(s)) {
-            Solmu ss = reitti.get(s);
-            System.out.println(ss.getX() + "," + ss.getY());
-            s = ss;
+        int solmu = 500 + v.getY() * 80;
+        int pituus = 0;
+        if (reitti.containsKey(solmu)) System.out.println("debug");
+        
+        while (reitti.containsKey(solmu)) {
+            int ss = reitti.get(solmu);
+            System.out.println(ss);
+            System.out.println(ss % v.getY() + "," + ss / v.getY());
+            solmu = ss;
             pituus++;
         }
         

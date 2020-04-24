@@ -4,9 +4,10 @@ import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
+import tira.reitinhaku.tirat.Keko;
 
 public class Dijkstra {
-    
+    private double sqrt2 = Math.sqrt(2);
     /**
     * Metodi ottaa verkon ja alku- ja loppusolmun ja laskee alkusolmusta loppusolmuun lyhimmän reitin.
     * 
@@ -14,39 +15,65 @@ public class Dijkstra {
     * 
     * @author seppo
     */
-    public IdentityHashMap<Solmu, Solmu> hae(Verkko verkko, Solmu alku, Solmu loppu) {
-        IdentityHashMap<Solmu, Solmu> edellinen = new IdentityHashMap();
-        PriorityQueue<Solmu> keko = new PriorityQueue();
+    public IdentityHashMap<Integer, Integer> hae(Verkko verkko, int alkuX, int alkuY, int loppuX, int loppuY) {
+        IdentityHashMap<Integer, Integer> edellinen = new IdentityHashMap();
+        Keko keko = new Keko(verkko.getX(), verkko.getY());
         
-        for (Solmu s : verkko.getSolmut()) {
-            s.setMatka(Double.MAX_VALUE);
-            keko.add(s);
-            
-        }
-        alku.setMatka(0.0);
-        keko.remove(alku);
-        keko.add(alku);
+        int vX = verkko.getX();
+        int vY = verkko.getY();
+        keko.lisaa(alkuX, alkuY, 0.0);
         
         while (!keko.isEmpty()) {
-            Solmu s = keko.poll();
-            if (s.equals(loppu)) break;
+            int solmu = keko.peekInt();
+            int solmuX = solmu % vY;
+            int solmuY = solmu / vY;
+            double paino = keko.poll();
+            if (solmuX == loppuX && solmuY == loppuY) break;
             
-            lisaaKekoon(s, keko, verkko, edellinen, loppu);
+            
+            lisaaKekoon(solmuX, solmuY, verkko, paino, edellinen, keko, loppuX, loppuY);
         }
-        
         return edellinen;
     }
     
-    public void lisaaKekoon(Solmu s, PriorityQueue keko, Verkko v, IdentityHashMap edellinen, Solmu loppu) {
-        for (Kaari k : s.getKaaret()) {
-            double uusiMatka = s.getMatka() + k.getPaino();
-            Solmu t = k.getToinen(s);
+    public void lisaaKekoon(int solmuX, int solmuY, Verkko verkko, double paino, IdentityHashMap<Integer, Integer> edellinen, Keko keko, int loppuX, int loppuY) {
+        double uusiMatka = paino + sqrt2 + oktiiliMatka(solmuX, solmuY, loppuX, loppuY);
+        int vX = verkko.getX();
+        int vY = verkko.getY();
+        for (int i = -1; i <= 1; i += 2) {
+            for (int j = -1; j <= 1; j+= 2) {
+                int naapuriX = solmuX + i;
+                int naapuriY = solmuY + j;
+                if (verkko.onkoSolmu(naapuriX, naapuriY)) {
+                    if (uusiMatka < verkko.getPaino(naapuriX, naapuriY)) {
+                        verkko.setPaino(naapuriX, naapuriY, paino);
+                        edellinen.put(naapuriX + vY * naapuriY, solmuX + vY * solmuY);
+                        keko.lisaa(naapuriX, naapuriY, uusiMatka);
+                    }
+                }
+            }
+        }
 
-            if (uusiMatka < t.getMatka()) {
-                t.setMatka(uusiMatka + oktiiliMatka(t.getX(), t.getY(), loppu.getX(), loppu.getY()));
-                edellinen.put(t, s);
-                keko.remove(t);
-                keko.add(t);
+        uusiMatka = paino + 1;
+        for (int i = -1; i <= 1; i += 2) {
+            int naapuriX = solmuX + i;
+            int naapuriY = solmuY;
+            if (verkko.onkoSolmu(naapuriX, naapuriY)) {
+                if (uusiMatka < verkko.getPaino(naapuriX, naapuriY)) {
+                    verkko.setPaino(naapuriX, naapuriY, paino);
+                    edellinen.put(naapuriX + vY * naapuriY, solmuX + vY * solmuY);
+                    keko.lisaa(naapuriX, naapuriY, uusiMatka);
+                }
+            }
+
+            naapuriX = solmuX;
+            naapuriY = solmuY + i;
+            if (verkko.onkoSolmu(naapuriX, naapuriY)) {
+                if (uusiMatka < verkko.getPaino(naapuriX, naapuriY)) {
+                    verkko.setPaino(naapuriX, naapuriY, paino);
+                    edellinen.put(naapuriX + vY * naapuriY, solmuX + vY * solmuY);
+                    keko.lisaa(naapuriX, naapuriY, uusiMatka);
+                }
             }
         }
     }
