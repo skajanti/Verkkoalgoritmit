@@ -69,7 +69,7 @@ public class Keko {
                 keko[i] = temp;
                 i = i * 2 + 1;
             }
-            if (i * 2 + 1 < keko.length) break;
+            if (i * 2 + 1 > keko.length) break;
             vanhempi = painot[keko[i]];
             lapsi1 = painot[keko[i * 2]];
             lapsi2 = painot[keko[i * 2 + 1]];
@@ -92,7 +92,7 @@ public class Keko {
             return false;
         }
         
-        painot[xy] = Double.MAX_VALUE;
+        painot[keko[xy]] = Double.MAX_VALUE;
         keko[xy] = keko[viimeinen - 1];
         int i = xy;
         
@@ -124,7 +124,8 @@ public class Keko {
     
     public String toString() {
         String s = "Keko: ";
-        for (int i = 1; i <= 6; i++) {
+        int a = viimeinen;
+        for (int i = 1; i < a; i++) {
             s += keko[i] + ", ";
         }
         

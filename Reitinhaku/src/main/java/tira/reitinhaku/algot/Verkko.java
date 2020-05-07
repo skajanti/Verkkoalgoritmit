@@ -81,6 +81,10 @@ public class Verkko {
     public ArrayList<Solmu> getSolmut() {
         return solmut;
     }
+
+    public boolean[][] getBoolkartta() {
+        return boolkartta;
+    }
     
     public Solmu getSolmu(int x, int y) {
         if (kartta != null && y < kartta.length && x < kartta[0].length) return kartta[x][y];
