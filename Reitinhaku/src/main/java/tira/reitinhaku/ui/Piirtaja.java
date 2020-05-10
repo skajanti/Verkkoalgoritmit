@@ -27,16 +27,16 @@ public class Piirtaja extends Application {
     @Override
     public void start(Stage ikkuna) {
         KartanLataaja lataaja = new KartanLataaja();
-        Verkko v = lataaja.lataa("Cauldron.map");
+        Verkko v = lataaja.lataa("BigGameHunters.map");
         
 //        AStar a = new AStar();
-        Dijkstra a = new Dijkstra();
-//        JumpPoint a = new JumpPoint();
+//        Dijkstra a = new Dijkstra();
+        JumpPoint a = new JumpPoint();
         long alku = System.currentTimeMillis();
-        int[] reitti = a.hae(v, 0, 30, 900, 80);
+        int[] reitti = a.hae(v, 0, 30, 500, 80);
         long loppu = System.currentTimeMillis();
         
-        int solmu = 900 + v.getY() * 80;
+        int solmu = 500 + v.getY() * 80;
         int pituus = 0;
         
         boolean[][] boolKartta = v.getBoolkartta();
@@ -61,6 +61,7 @@ public class Piirtaja extends Application {
         do {
             int ss = reitti[solmu];
             pw.setColor(ss % v.getY(), ss / v.getY(), vari);
+            System.out.println(ss % v.getY() + "," + ss / v.getY());
             solmu = ss;
             pituus++;
         } while (reitti[solmu] % v.getY() != 0 || reitti[solmu] / v.getY() != 30);

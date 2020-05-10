@@ -40,12 +40,12 @@ public class JumpPoint extends AStar {
             sX = t % korkeus;
             sY = t / korkeus;
             sPaino = v.getPaino(sX, sY);
-            double uusiMatka = sPaino + oktiiliMatka(sX, sY, loppuX, loppuY);
+            double uusiMatka = paino + oktiiliMatka(solmuX, solmuY, sX, sY) + oktiiliMatka(sX, sY, loppuX, loppuY);
             
-            if (uusiMatka < paino) {
-                v.setPaino(sX, sY, sPaino);
+            if (uusiMatka < sPaino) {
+                v.setPaino(sX, sY, uusiMatka);
                 edellinen[t] = solmuX + solmuY * korkeus;
-                keko.lisaa(sX, sY, sPaino);
+                keko.lisaa(sX, sY, uusiMatka);
             }
         }
     }
@@ -263,7 +263,7 @@ public class JumpPoint extends AStar {
             while (true) {
                 if (solmuX == loppuX && solmuY == loppuY) return loppuX + loppuY * v.getY();
                 if (v.onkoSolmu(solmuX + i, solmuY)) {
-                    if (!v.onkoSolmu(solmuX + i, solmuY + 1) && v.onkoSolmu(x + i + 1, solmuY + 1)) {
+                    if (!v.onkoSolmu(solmuX + i, solmuY + 1) && v.onkoSolmu(solmuX + i + 1, solmuY + 1)) {
                         return solmuX + i + solmuY * v.getY();
                     }
                 } else {
