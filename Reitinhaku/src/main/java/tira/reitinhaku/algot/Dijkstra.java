@@ -14,6 +14,8 @@ public class Dijkstra {
     public int[] hae(Verkko verkko, int alkuX, int alkuY, int loppuX, int loppuY) {
         int[] edellinen = new int[verkko.getX() * verkko.getY() + 1];
         Keko keko = new Keko(verkko.getX(), verkko.getY());
+        double[][] painot = verkko.getPainot();
+        boolean[][] kartta = verkko.getBoolkartta();
         
         
         int vX = verkko.getX();
@@ -28,12 +30,12 @@ public class Dijkstra {
             if (solmuX == loppuX && solmuY == loppuY) break;
             
             
-            lisaaKekoon(solmuX, solmuY, verkko, paino, edellinen, keko, loppuX, loppuY);
+            lisaaKekoon(solmuX, solmuY, painot, kartta, verkko, paino, edellinen, keko, loppuX, loppuY);
         }
         return edellinen;
     }
     
-    public void lisaaKekoon(int solmuX, int solmuY, Verkko verkko, double paino, int[] edellinen, Keko keko, int loppuX, int loppuY) {
+    public void lisaaKekoon(int solmuX, int solmuY, double[][] painot, boolean[][] kartta, Verkko verkko, double paino, int[] edellinen, Keko keko, int loppuX, int loppuY) {
         double uusiMatka = paino + sqrt2 + oktiiliMatka(solmuX, solmuY, loppuX, loppuY);
         int vX = verkko.getX();
         int vY = verkko.getY();
@@ -41,9 +43,9 @@ public class Dijkstra {
             for (int j = -1; j <= 1; j+= 2) {
                 int naapuriX = solmuX + i;
                 int naapuriY = solmuY + j;
-                if (verkko.onkoSolmu(naapuriX, naapuriY)) {
-                    if (uusiMatka < verkko.getPaino(naapuriX, naapuriY)) {
-                        verkko.setPaino(naapuriX, naapuriY, uusiMatka);
+                if (kartta[naapuriX][naapuriY]) {
+                    if (uusiMatka < painot[naapuriX][naapuriY]) {
+                        painot[naapuriX][naapuriY] = uusiMatka;
                         edellinen[naapuriX + vY * naapuriY] = solmuX + vY * solmuY;
                         keko.lisaa(naapuriX, naapuriY, uusiMatka);
                     }
@@ -55,9 +57,9 @@ public class Dijkstra {
         for (int i = -1; i <= 1; i += 2) {
             int naapuriX = solmuX + i;
             int naapuriY = solmuY;
-            if (verkko.onkoSolmu(naapuriX, naapuriY)) {
-                if (uusiMatka < verkko.getPaino(naapuriX, naapuriY)) {
-                    verkko.setPaino(naapuriX, naapuriY, uusiMatka);
+            if (kartta[naapuriX][naapuriY]) {
+                if (uusiMatka < painot[naapuriX][naapuriY]) {
+                    painot[naapuriX][naapuriY] = uusiMatka;
                     edellinen[naapuriX + vY * naapuriY] = solmuX + vY * solmuY;
                     keko.lisaa(naapuriX, naapuriY, uusiMatka);
                 }
@@ -65,9 +67,9 @@ public class Dijkstra {
 
             naapuriX = solmuX;
             naapuriY = solmuY + i;
-            if (verkko.onkoSolmu(naapuriX, naapuriY)) {
-                if (uusiMatka < verkko.getPaino(naapuriX, naapuriY)) {
-                    verkko.setPaino(naapuriX, naapuriY, uusiMatka);
+            if (kartta[naapuriX][naapuriY]) {
+                if (uusiMatka < painot[naapuriX][naapuriY]) {
+                    painot[naapuriX][naapuriY] = uusiMatka;
                     edellinen[naapuriX + vY * naapuriY] = solmuX + vY * solmuY;
                     keko.lisaa(naapuriX, naapuriY, uusiMatka);
                 }

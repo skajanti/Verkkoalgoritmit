@@ -21,6 +21,12 @@ public class Verkko {
         this.x = x;
         this.y = y;
     }
+    
+    public void nollaa() {
+        for (double[] rivi : painot) {
+            Arrays.fill(rivi, Double.MAX_VALUE);
+        }
+    }
 
     public int getX() {
         return x;
@@ -37,6 +43,10 @@ public class Verkko {
     public double getPaino(int x, int y) {
         if (onkoSolmu(x, y)) return painot[x][y];
         return Double.MAX_VALUE;
+    }
+    
+    public double[][] getPainot() {
+        return painot;
     }
     
     public void setPaino(int x, int y, double p) {

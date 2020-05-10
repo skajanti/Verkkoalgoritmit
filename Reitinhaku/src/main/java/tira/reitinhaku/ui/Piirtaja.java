@@ -27,11 +27,11 @@ public class Piirtaja extends Application {
     @Override
     public void start(Stage ikkuna) {
         KartanLataaja lataaja = new KartanLataaja();
-        Verkko v = lataaja.lataa("BigGameHunters.map");
+        Verkko v = lataaja.lataa("Cauldron.map");
         
 //        AStar a = new AStar();
-        Dijkstra a = new Dijkstra();
-//        JumpPoint a = new JumpPoint();
+//        Dijkstra a = new Dijkstra();
+        JumpPoint a = new JumpPoint();
         long alku = System.currentTimeMillis();
         int[] reitti = a.hae(v, 2, 30, 500, 80);
         long loppu = System.currentTimeMillis();

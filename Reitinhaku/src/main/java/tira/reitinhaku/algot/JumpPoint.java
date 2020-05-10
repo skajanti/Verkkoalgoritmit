@@ -4,29 +4,29 @@ import tira.reitinhaku.tirat.ExtendingList;
 import tira.reitinhaku.tirat.Keko;
 
 /**
- *
+ * Toteuttaa Juomp point searchin. Enemmän tietoa: https://zerowidth.com/2013/a-visual-explanation-of-jump-point-search.html
  * @author seppo
  */
 public class JumpPoint extends AStar {
     @Override
-    public void lisaaKekoon(int solmuX, int solmuY, Verkko v, double paino, int[] edellinen, Keko keko, int loppuX, int loppuY) {
+    public void lisaaKekoon(int solmuX, int solmuY, double[][] painot, boolean[][] kartta, Verkko v, double paino, int[] edellinen, Keko keko, int loppuX, int loppuY) {
         ExtendingList<Integer> solmut = new ExtendingList();
         
-        int oikea = oikea(solmuX, solmuY, v, loppuX, loppuY);
+        int oikea = oikea(solmuX, solmuY, painot, kartta, v, loppuX, loppuY);
         if (oikea != -1) solmut.add(oikea);
-        int vasen = vasen(solmuX, solmuY, v, loppuX, loppuY);
+        int vasen = vasen(solmuX, solmuY, painot, kartta, v, loppuX, loppuY);
         if (vasen != -1) solmut.add(vasen);
-        int alas = alas(solmuX, solmuY, v, loppuX, loppuY);
+        int alas = alas(solmuX, solmuY, painot, kartta, v, loppuX, loppuY);
         if (alas != -1) solmut.add(alas);
-        int ylos = ylos(solmuX, solmuY, v, loppuX, loppuY);
+        int ylos = ylos(solmuX, solmuY, painot, kartta, v, loppuX, loppuY);
         if (ylos != -1) solmut.add(ylos);
-        int ao = ao(solmuX, solmuY, v, loppuX, loppuY);
+        int ao = ao(solmuX, solmuY, painot, kartta, v, loppuX, loppuY);
         if (ao != -1) solmut.add(ao);
-        int av = av(solmuX, solmuY, v, loppuX, loppuY);
+        int av = av(solmuX, solmuY, painot, kartta, v, loppuX, loppuY);
         if (av != -1) solmut.add(av);
-        int yo = yo(solmuX, solmuY, v, loppuX, loppuY);
+        int yo = yo(solmuX, solmuY, painot, kartta, v, loppuX, loppuY);
         if (yo != -1) solmut.add(yo);
-        int yv = yv(solmuX, solmuY, v, loppuX, loppuY);
+        int yv = yv(solmuX, solmuY, painot, kartta, v, loppuX, loppuY);
         if (yv != -1) solmut.add(yv);
         
         if (solmut.isEmpty()) return;
@@ -44,17 +44,74 @@ public class JumpPoint extends AStar {
             if (uusiMatka < sPaino) {
                 v.setPaino(sX, sY, uusiMatka);
                 edellinen[t] = solmuX + solmuY * korkeus;
+//                lisaaReitti(solmuX, solmuY, sX, sY, edellinen, v.getY());
                 keko.lisaa(sX, sY, uusiMatka);
             }
         }
     }
     
-    public int yv(int x, int y, Verkko v, int loppuX, int loppuY) {
+    public void lisaaReitti(int sX, int sY, int tX, int tY, int[] edellinen, int korkeus) {
+        if (sX == tX) {
+            if (sY < tY) {
+                while (tY > sY) {
+                    edellinen[tX + tY * korkeus] = tX + (tY - 1) * korkeus;
+                    tY--;
+                }
+            } else {
+                while (tY < sY) {
+                    edellinen[tX + tY * korkeus] = tX + (tY + 1) * korkeus;
+                    tY++;
+                }
+            }
+        } else if (sY == tY) {
+            if (sX < tX) {
+                while (tX > sX) {
+                    edellinen[tX + tY * korkeus] = tX - 1 + tY * korkeus;
+                    tX--;
+                }
+            } else {
+                while (tX < sX) {
+                    edellinen[tX + tY * korkeus] = tX + 1 + tY* korkeus;
+                    tX++;
+                }
+            }
+        } else if (sX < tX){
+            if (sY < tY) {
+                while (tY > sY && tX > sX) {
+                    edellinen[tX + tY * korkeus] = tX - 1 + (tY - 1) * korkeus;
+                    tY--;
+                    tX--;
+                }
+            } else {
+                while (tY < sY) {
+                    edellinen[tX + tY * korkeus] = tX - 1 + (tY + 1) * korkeus;
+                    tY++;
+                    tX--;
+                }
+            }
+        } else {
+            if (sY < tY) {
+                while (tY > sY && tX < sX) {
+                    edellinen[tX + tY * korkeus] = tX + 1 + (tY - 1) * korkeus;
+                    tY--;
+                    tX++;
+                }
+            } else {
+                while (tY < sY && tX < sX) {
+                    edellinen[tX + tY * korkeus] = tX + 1 + (tY + 1) * korkeus;
+                    tY++;
+                    tX++;
+                }
+            }
+        }
+    }
+    
+    public int yv(int x, int y, double[][] painot, boolean[][] kartta, Verkko v, int loppuX, int loppuY) {
         int i = 1;
         
         while (v.onkoSolmu(x - i, y - i)) {
-            int vasen = vasen(x - i, y - i, v, loppuX, loppuY);
-            int ylos = ylos(x - i, y - i, v, loppuX, loppuY);
+            int vasen = vasen(x - i, y - i, painot, kartta, v, loppuX, loppuY);
+            int ylos = ylos(x - i, y - i, painot, kartta, v, loppuX, loppuY);
             
             if (vasen != -1 || ylos != -1) {
                 return x - i + (y - i) * v.getY();
@@ -64,12 +121,12 @@ public class JumpPoint extends AStar {
         return -1;
     }
     
-    public int yo(int x, int y, Verkko v, int loppuX, int loppuY) {
+    public int yo(int x, int y, double[][] painot, boolean[][] kartta, Verkko v, int loppuX, int loppuY) {
         int i = 1;
         
         while (v.onkoSolmu(x + i, y - i)) {
-            int oikea = oikea(x + i, y - i, v, loppuX, loppuY);
-            int ylos = ylos(x + i, y - i, v, loppuX, loppuY);
+            int oikea = oikea(x + i, y - i, painot, kartta, v, loppuX, loppuY);
+            int ylos = ylos(x + i, y - i, painot, kartta, v, loppuX, loppuY);
             
             if (oikea != -1 || ylos != -1) {
                 return x + i + (y - i) * v.getY();
@@ -79,12 +136,12 @@ public class JumpPoint extends AStar {
         return -1;
     }
     
-    public int av(int x, int y, Verkko v, int loppuX, int loppuY) {
+    public int av(int x, int y, double[][] painot, boolean[][] kartta, Verkko v, int loppuX, int loppuY) {
         int i = 1;
         
         while (v.onkoSolmu(x - i, y + i)) {
-            int vasen = vasen(x - i, y + i, v, loppuX, loppuY);
-            int alas = alas(x - i, y + i, v, loppuX, loppuY);
+            int vasen = vasen(x - i, y + i, painot, kartta, v, loppuX, loppuY);
+            int alas = alas(x - i, y + i, painot, kartta, v, loppuX, loppuY);
             
             if (vasen != -1 || alas != -1) {
                 return x - i + (y + i) * v.getY();
@@ -94,12 +151,12 @@ public class JumpPoint extends AStar {
         return -1;
     }
 
-    public int ao(int x, int y, Verkko v, int loppuX, int loppuY) {
+    public int ao(int x, int y, double[][] painot, boolean[][] kartta, Verkko v, int loppuX, int loppuY) {
         int i = 1;
         
         while (v.onkoSolmu(x + i, y + i)) {
-            int oikea = oikea(x + i, y + i, v, loppuX, loppuY);
-            int alas = alas(x + i, y + i, v, loppuX, loppuY);
+            int oikea = oikea(x + i, y + i, painot, kartta, v, loppuX, loppuY);
+            int alas = alas(x + i, y + i, painot, kartta, v, loppuX, loppuY);
             
             if (oikea != -1 || alas != -1) {
                 return x + i + (y + i) * v.getY();
@@ -109,41 +166,13 @@ public class JumpPoint extends AStar {
         return -1;
     }
     
-    public int ylos(int x, int y, Verkko v, int loppuX, int loppuY) {
+    public int ylos(int x, int y, double[][] painot, boolean[][] kartta, Verkko v, int loppuX, int loppuY) {
         int i = 1;
-        
-        if (x == v.getX()) {
-            while (true) {
-                if (x == loppuX && y == loppuY) return loppuX + loppuY * v.getY();
-                if (v.onkoSolmu(x, y - i)) {
-                    if (!v.onkoSolmu(x - 1, y - i) && v.onkoSolmu(x - 1, y - i - 1)) {
-                        return x + (y - i) * v.getY();
-                    }
-                } else {
-                    return -1;
-                }
-                i++;
-            }
-        }
-        
-        if (x == 1) {
-            while (true) {
-                if (x == loppuX && y == loppuY) return loppuX + loppuY * v.getY();
-                if (v.onkoSolmu(x, y - i)) {
-                    if (!v.onkoSolmu(x + 1, y - i) && v.onkoSolmu(x + 1, y - i - 1)) {
-                        return x + (y - i) * v.getY();
-                    }
-                } else {
-                    return -1;
-                }
-                i++;
-            }
-        }
         
         while (true) {
             if (x == loppuX && y == loppuY) return loppuX + loppuY * v.getY();
-            if (v.onkoSolmu(x, y - i)) {
-                if ((!v.onkoSolmu(x + 1, y - i) || !v.onkoSolmu(x - 1, y - i)) && (v.onkoSolmu(x + 1, y - i - 1) || v.onkoSolmu(x - 1, y - i - 1))) {
+            if (kartta[x][y - i]) {
+                if ((!kartta[x + 1][y - 1] && kartta[x + 1][y - i - 1]) || (!kartta[x - 1][y - i] && kartta[x - 1][y - i - 1])) {
                     return x + (y - i) * v.getY();
                 }
             } else {
@@ -153,41 +182,13 @@ public class JumpPoint extends AStar {
         }
     }
     
-    public int alas(int x, int y, Verkko v, int loppuX, int loppuY) {
+    public int alas(int x, int y, double[][] painot, boolean[][] kartta, Verkko v, int loppuX, int loppuY) {
         int i = 1;
-        
-        if (x == v.getX()) {
-            while (true) {
-                if (x == loppuX && y == loppuY) return loppuX + loppuY * v.getY();
-                if (v.onkoSolmu(x, y + i)) {
-                    if (!v.onkoSolmu(x - 1, y + i) && v.onkoSolmu(x - 1, y + i + 1)) {
-                        return x + (y + i) * v.getY();
-                    }
-                } else {
-                    return -1;
-                }
-                i++;
-            }
-        }
-        
-        if (x == 1) {
-            while (true) {
-                if (x == loppuX && y == loppuY) return loppuX + loppuY * v.getY();
-                if (v.onkoSolmu(x, y + i)) {
-                    if (!v.onkoSolmu(x + 1, y + i) && v.onkoSolmu(x + 1, y + i + 1)) {
-                        return x + (y + i) * v.getY();
-                    }
-                } else {
-                    return -1;
-                }
-                i++;
-            }
-        }
-        
+       
         while (true) {
             if (x == loppuX && y == loppuY) return loppuX + loppuY * v.getY();
-            if (v.onkoSolmu(x, y + i)) {
-                if ((!v.onkoSolmu(x + 1, y + i) || !v.onkoSolmu(x - 1, y + i)) && (v.onkoSolmu(x + 1, y + i + 1) || v.onkoSolmu(x - 1, y + i + 1))) {
+            if (kartta[x][y + i]) {
+                if ((!kartta[x + 1][y + i] && kartta[x + 1][y + i + 1]) || (!kartta[x - 1][y + i] && kartta[x - 1][y + i + 1])) {
                     return x + (y + i) * v.getY();
                 }
             } else {
@@ -197,41 +198,13 @@ public class JumpPoint extends AStar {
         }
     }
     
-    public int vasen(int x, int y, Verkko v, int loppuX, int loppuY) {
+    public int vasen(int x, int y, double[][] painot, boolean[][] kartta, Verkko v, int loppuX, int loppuY) {
         int i = 1;
-        
-        if (y == v.getY()) {
-            while (true) {
-                if (x == loppuX && y == loppuY) return loppuX + loppuY * v.getY();
-                if (v.onkoSolmu(x - i, y)) {
-                    if (!v.onkoSolmu(x - i, y - 1) && v.onkoSolmu(x - i - 1, y - 1)) {
-                        return x - i + y * v.getY();
-                    }
-                } else {
-                    return -1;
-                }
-                i++;
-            }
-        }
-        
-        if (y == 1) {
-            while (true) {
-                if (x == loppuX && y == loppuY) return loppuX + loppuY * v.getY();
-                if (v.onkoSolmu(x - i, y)) {
-                    if (!v.onkoSolmu(x - i, y + 1) && v.onkoSolmu(x - i - 1, y + 1)) {
-                        return x - i + y * v.getY();
-                    }
-                } else {
-                    return -1;
-                }
-                i++;
-            }
-        }
         
         while (true) {
             if (x == loppuX && y == loppuY) return loppuX + loppuY * v.getY();
-            if (v.onkoSolmu(x - i, y)) {
-                if ((!v.onkoSolmu(x - i, y + 1) || !v.onkoSolmu(x - i, y - 1)) && (v.onkoSolmu(x - i - 1, y + 1) || v.onkoSolmu(x - i - 1, y - 1))) {
+            if (kartta[x - i][y]) {
+                if ((!kartta[x - i][y + 1] && kartta[x - i - 1][y + 1]) || (!kartta[x - i][y - 1] && kartta[x - i - 1][y - 1])) {
                     return x - i + y * v.getY();
                 }
             } else {
@@ -241,41 +214,13 @@ public class JumpPoint extends AStar {
         }
     }
     
-    public int oikea(int solmuX, int solmuY, Verkko v, int loppuX, int loppuY) {
+    public int oikea(int solmuX, int solmuY, double[][] painot, boolean[][] kartta, Verkko v, int loppuX, int loppuY) {
         int i = 1;
-        
-        if (solmuY == v.getY()) {
-            while (true) {
-                if (solmuX == loppuX && solmuY == loppuY) return loppuX + loppuY * v.getY();
-                if (v.onkoSolmu(solmuX + i, solmuY)) {
-                    if (!v.onkoSolmu(solmuX + i, solmuY - 1) && v.onkoSolmu(solmuX + i + 1, solmuY - 1)) {
-                        return solmuX + i + solmuY * v.getY();
-                    }
-                } else {
-                    return -1;
-                }
-                i++;
-            }
-        }
-        
-        if (solmuY == 1) {
-            while (true) {
-                if (solmuX == loppuX && solmuY == loppuY) return loppuX + loppuY * v.getY();
-                if (v.onkoSolmu(solmuX + i, solmuY)) {
-                    if (!v.onkoSolmu(solmuX + i, solmuY + 1) && v.onkoSolmu(solmuX + i + 1, solmuY + 1)) {
-                        return solmuX + i + solmuY * v.getY();
-                    }
-                } else {
-                    return -1;
-                }
-                i++;
-            }
-        }
         
         while (true) {
             if (solmuX == loppuX && solmuY == loppuY) return loppuX + loppuY * v.getY();
-            if (v.onkoSolmu(solmuX + i, solmuY)) {
-                if ((!v.onkoSolmu(solmuX + i, solmuY + 1) || !v.onkoSolmu(solmuX + 1, solmuY - 1)) && (v.onkoSolmu(solmuX + i + 1, solmuY + 1) || v.onkoSolmu(solmuX + i + 1, solmuY - 1))) {
+            if (kartta[solmuX + i][solmuY]) {
+                if ((!kartta[solmuX + i][solmuY + 1] && kartta[solmuX + i + 1][solmuY + 1]) || (!kartta[solmuX + i][solmuY - 1] && kartta[solmuX + i + 1][solmuY - 1])) {
                     return solmuX + i + solmuY * v.getY();
                 }
             } else {
