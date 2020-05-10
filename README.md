@@ -1,10 +1,11 @@
-# Verkkoalgoritmit (WIP)
+# Verkkoalgoritmit
 
-Tämä on TiRa:n harjoitustyö 2020p4. Tämä dokumentti kasvaa työn edetessä.
+Tämä on TiRa:n harjoitustyö 2020p4.
 
 [Määrittelydokumentti](https://github.com/skajanti/Verkkoalgoritmit/blob/master/Documentation/Maarittelydokumentti.md)
 [Toteutusdokumentti](https://github.com/skajanti/Verkkoalgoritmit/blob/master/Documentation/Toteutusdokumentti.md)
 [Testausdokumentti](https://github.com/skajanti/Verkkoalgoritmit/blob/master/Documentation/Testausdokumentti.md)
+[Tehomittaus](https://github.com/skajanti/Verkkoalgoritmit/blob/master/Documentation/Tehokkuustestaus.md)
 
 [Jacoco reportti](https://github.com/skajanti/Verkkoalgoritmit/blob/master/Documentation/jacoco.html)
 [Checkstyle](https://github.com/skajanti/Verkkoalgoritmit/blob/master/Documentation/checkstyle.html)
@@ -18,4 +19,10 @@ Tämä on TiRa:n harjoitustyö 2020p4. Tämä dokumentti kasvaa työn edetessä.
 
 
 ### Käyttöohje
-Ohjelma on tällä hetkellä kovakoodattu. Ajaaksesi algoritmin, avaa ohjelma Netbeansissa tai vastaavassa ja suorita ohjelma. Algoritmin voit valita mainissa kommentteja muuttamalla.
+Laita ohjelma samaan kansioon kartan kanssa. Karttoja saa sivulta: https://www.movingai.com/benchmarks/grids.html
+
+Aja ohjelma komennolla:
+```
+java -jar Reitinhaku.jar
+```
+Huom! älä anna lähtö-tai maalipisteeksi koordinaattia 0, se on aina seinää.

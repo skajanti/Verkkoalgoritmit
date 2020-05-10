@@ -50,62 +50,6 @@ public class JumpPoint extends AStar {
         }
     }
     
-    public void lisaaReitti(int sX, int sY, int tX, int tY, int[] edellinen, int korkeus) {
-        if (sX == tX) {
-            if (sY < tY) {
-                while (tY > sY) {
-                    edellinen[tX + tY * korkeus] = tX + (tY - 1) * korkeus;
-                    tY--;
-                }
-            } else {
-                while (tY < sY) {
-                    edellinen[tX + tY * korkeus] = tX + (tY + 1) * korkeus;
-                    tY++;
-                }
-            }
-        } else if (sY == tY) {
-            if (sX < tX) {
-                while (tX > sX) {
-                    edellinen[tX + tY * korkeus] = tX - 1 + tY * korkeus;
-                    tX--;
-                }
-            } else {
-                while (tX < sX) {
-                    edellinen[tX + tY * korkeus] = tX + 1 + tY* korkeus;
-                    tX++;
-                }
-            }
-        } else if (sX < tX){
-            if (sY < tY) {
-                while (tY > sY && tX > sX) {
-                    edellinen[tX + tY * korkeus] = tX - 1 + (tY - 1) * korkeus;
-                    tY--;
-                    tX--;
-                }
-            } else {
-                while (tY < sY) {
-                    edellinen[tX + tY * korkeus] = tX - 1 + (tY + 1) * korkeus;
-                    tY++;
-                    tX--;
-                }
-            }
-        } else {
-            if (sY < tY) {
-                while (tY > sY && tX < sX) {
-                    edellinen[tX + tY * korkeus] = tX + 1 + (tY - 1) * korkeus;
-                    tY--;
-                    tX++;
-                }
-            } else {
-                while (tY < sY && tX < sX) {
-                    edellinen[tX + tY * korkeus] = tX + 1 + (tY + 1) * korkeus;
-                    tY++;
-                    tX++;
-                }
-            }
-        }
-    }
-    
     public int yv(int x, int y, double[][] painot, boolean[][] kartta, Verkko v, int loppuX, int loppuY) {
         int i = 1;
         

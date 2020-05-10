@@ -126,7 +126,7 @@ public class Piirtaja extends Application {
         Color vari = new Color(0, 0, 1, 1);
         for (int i = 0; i < v.getY(); i++) {
             for (int j = 0; j < v.getX(); j++) {
-                if(boolKartta[j][i]) pw.setColor(j, i, vari);
+                if (boolKartta[j][i]) pw.setColor(j, i, vari);
             }
         }
         

@@ -21,7 +21,7 @@ public class Keko {
         if (painot[x + korkeus * y] != Double.MAX_VALUE) remove(x, y);
         keko[viimeinen] = x + korkeus * y;
         painot[x + korkeus * y] = paino;
-        int tama = viimeinen, ylempi = viimeinen/2;
+        int tama = viimeinen, ylempi = viimeinen / 2;
         
         while (tama != 1) {
             double a = painot[keko[tama]], b = painot[keko[ylempi]];
@@ -57,7 +57,7 @@ public class Keko {
         double vanhempi = painot[keko[i]];
         double lapsi1 = painot[keko[i * 2]];
         double lapsi2 = painot[keko[i * 2 + 1]];
-        while (vanhempi > lapsi1 || vanhempi > lapsi2){
+        while (vanhempi > lapsi1 || vanhempi > lapsi2) {
             if (lapsi1 < lapsi2) {
                 int temp = keko[i * 2];
                 keko[i * 2] = keko[i];
@@ -99,7 +99,7 @@ public class Keko {
         double vanhempi = painot[keko[i]];
         double lapsi1 = painot[keko[i * 2]];
         double lapsi2 = painot[keko[i * 2 + 1]];
-        while (vanhempi > lapsi1 || vanhempi > lapsi2){
+        while (vanhempi > lapsi1 || vanhempi > lapsi2) {
             if (lapsi1 < lapsi2) {
                 int temp = keko[i * 2];
                 keko[i * 2] = keko[i];
@@ -139,7 +139,7 @@ public class Keko {
         double[] r = new double[viimeinen - 1];
         int a = viimeinen;
         for (int i = 1; i < a; i++) {
-            r[i-1] = poll();
+            r[i - 1] = poll();
         }
         
         return r;
