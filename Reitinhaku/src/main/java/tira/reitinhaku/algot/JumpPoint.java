@@ -1,8 +1,6 @@
 package tira.reitinhaku.algot;
 
-import java.util.ArrayList;
-import java.util.IdentityHashMap;
-import java.util.PriorityQueue;
+import tira.reitinhaku.tirat.ExtendingList;
 import tira.reitinhaku.tirat.Keko;
 
 /**
@@ -12,7 +10,7 @@ import tira.reitinhaku.tirat.Keko;
 public class JumpPoint extends AStar {
     @Override
     public void lisaaKekoon(int solmuX, int solmuY, Verkko v, double paino, int[] edellinen, Keko keko, int loppuX, int loppuY) {
-        ArrayList<Integer> solmut = new ArrayList();
+        ExtendingList<Integer> solmut = new ExtendingList();
         
         int oikea = oikea(solmuX, solmuY, v, loppuX, loppuY);
         if (oikea != -1) solmut.add(oikea);
@@ -36,7 +34,8 @@ public class JumpPoint extends AStar {
         int sX, sY;
         int korkeus = v.getY();
         double sPaino;
-        for (int t : solmut) {
+        for (int i = 0; i < solmut.length(); i++) {
+            int t = solmut.get(i);
             sX = t % korkeus;
             sY = t / korkeus;
             sPaino = v.getPaino(sX, sY);

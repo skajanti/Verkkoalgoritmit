@@ -11,8 +11,6 @@ import javafx.scene.paint.Color;
 import tira.reitinhaku.algot.AStar;
 import tira.reitinhaku.algot.Dijkstra;
 import tira.reitinhaku.algot.JumpPoint;
-import tira.reitinhaku.algot.Kaari;
-import tira.reitinhaku.algot.Solmu;
 import tira.reitinhaku.algot.Verkko;
 import tira.reitinhaku.tirat.Keko;
 import tira.reitinhaku.utils.KartanLataaja;

@@ -15,6 +15,7 @@ public class Dijkstra {
         int[] edellinen = new int[verkko.getX() * verkko.getY() + 1];
         Keko keko = new Keko(verkko.getX(), verkko.getY());
         
+        
         int vX = verkko.getX();
         int vY = verkko.getY();
         keko.lisaa(alkuX, alkuY, 0.0);
