@@ -21,6 +21,7 @@ public class KartanLataaja {
             }
         } catch (Exception e) {
             System.out.println("Kartanluku ei toimi.");
+            return null;
         }
         
         int y = Integer.parseInt(rivit.get(1).split(" ")[1]);

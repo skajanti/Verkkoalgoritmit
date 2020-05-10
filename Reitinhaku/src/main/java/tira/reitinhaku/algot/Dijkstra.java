@@ -2,7 +2,7 @@ package tira.reitinhaku.algot;
 
 import tira.reitinhaku.tirat.Keko;
 
-public class Dijkstra {
+public class Dijkstra implements ReitinHakuAlgo {
     private double sqrt2 = Math.sqrt(2);
     /**
     * Metodi ottaa verkon ja alku- ja loppusolmun ja laskee alkusolmusta loppusolmuun lyhimmän reitin.
@@ -11,8 +11,11 @@ public class Dijkstra {
     * 
     * @author seppo
     */
+    
+    @Override
     public int[] hae(Verkko verkko, int alkuX, int alkuY, int loppuX, int loppuY) {
         int[] edellinen = new int[verkko.getX() * verkko.getY() + 1];
+        if (alkuX == 0 || alkuY == 0 || loppuX == 0 || loppuY == 0 || alkuX == verkko.getX() || alkuY == verkko.getY() || loppuX == verkko.getX() || loppuY == verkko.getY()) return edellinen;
         Keko keko = new Keko(verkko.getX(), verkko.getY());
         double[][] painot = verkko.getPainot();
         boolean[][] kartta = verkko.getBoolkartta();

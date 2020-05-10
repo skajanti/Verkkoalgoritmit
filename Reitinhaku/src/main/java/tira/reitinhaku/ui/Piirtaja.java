@@ -1,5 +1,6 @@
 package tira.reitinhaku.ui;
 
+import java.util.Scanner;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
@@ -11,8 +12,10 @@ import javafx.stage.Stage;
 import tira.reitinhaku.algot.AStar;
 import tira.reitinhaku.algot.Dijkstra;
 import tira.reitinhaku.algot.JumpPoint;
+import tira.reitinhaku.algot.ReitinHakuAlgo;
 import tira.reitinhaku.algot.Verkko;
 import tira.reitinhaku.utils.KartanLataaja;
+
 
 /**
  *
@@ -26,22 +29,93 @@ public class Piirtaja extends Application {
     
     @Override
     public void start(Stage ikkuna) {
+        Scanner lukija = new Scanner(System.in);
+        Verkko v;
         KartanLataaja lataaja = new KartanLataaja();
-        Verkko v = lataaja.lataa("Cauldron.map");
+        String karttaNimi;
+        while (true) {
+            System.out.println("Syötä kartan nimi: ");
+            karttaNimi = lukija.nextLine();
+            v = lataaja.lataa(karttaNimi);
+            if (v != null) break;
+        }
+
+        ReitinHakuAlgo algoritmi;
+        while (true) {
+            System.out.println("Valitse algoritmi: Dijkstra(d), A*(A*) tai Jump Point(jp)");
+            String algoString = lukija.nextLine();
+            if (algoString.equals("d")) {
+                algoritmi = new Dijkstra();
+                break;
+            } else if (algoString.equals("A*")) {
+                algoritmi = new AStar();
+                break;
+            } else if (algoString.equals("jp")) {
+                algoritmi = new JumpPoint();
+                break;
+            } else {
+                System.out.println("Virheellinen syöte, vastaa \"d\" tai \"A*\" tai \"jp\"");
+            }
+        }
+
+        int aX, aY, lX, lY;
+        while (true) {
+            System.out.println("Syötä lähtöpisteen x-koordinaatti: ");
+            String aXString = lukija.nextLine();
+            try {
+                aX = Integer.parseInt(aXString);
+                break;
+            } catch (Exception e) {
+                System.out.println("Virheellinen syöte, täytyy olla kokonaisluku");
+            }
+        }
+
+        while (true) {
+            System.out.println("Syötä lähtöpisteen y-koordinaatti: ");
+            String aYString = lukija.nextLine();
+            try {
+                aY = Integer.parseInt(aYString);
+                break;
+            } catch (Exception e) {
+                System.out.println("Virheellinen syöte, täytyy olla kokonaisluku");
+            }
+        }
+
+        while (true) {
+            System.out.println("Syötä maalipisteen x-koordinaatti: ");
+            String lXString = lukija.nextLine();
+            try {
+                lX = Integer.parseInt(lXString);
+                break;
+            } catch (Exception e) {
+                System.out.println("Virheellinen syöte, täytyy olla kokonaisluku");
+            }
+        }
+
+        while (true) {
+            System.out.println("Syötä maalipisteen y-koordinaatti: ");
+            String lYString = lukija.nextLine();
+            try {
+                lY = Integer.parseInt(lYString);
+                break;
+            } catch (Exception e) {
+                System.out.println("Virheellinen syöte, täytyy olla kokonaisluku");
+            }
+        }
         
-//        AStar a = new AStar();
-//        Dijkstra a = new Dijkstra();
-        JumpPoint a = new JumpPoint();
         long alku = System.currentTimeMillis();
-        int[] reitti = a.hae(v, 2, 30, 500, 80);
+        int[] reitti = algoritmi.hae(v, aX, aY, lX, lY);
         long loppu = System.currentTimeMillis();
         
-        int solmu = 500 + v.getY() * 80;
+        int solmu = lX + v.getY() * lY;
         int pituus = 0;
         
         boolean[][] boolKartta = v.getBoolkartta();
         
-        
+        if (reitti[lX + lY * v.getY()] == 0) {
+            System.out.println("Ei reittiä");
+            return;
+        }
         
         
         
